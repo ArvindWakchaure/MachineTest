@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title >User List</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-item-divider sticky style="border: 0">
+        <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="setFilteredLocations($event)"></ion-searchbar>
+      </ion-item-divider>
+    
+  <ng-container *ngIf="isLoadedData; else elseTemplate">
+    <ion-list>
+    <ion-item *ngFor="let item of userData">
+        <ion-avatar slot="start">
+          <img [defaultImage]="defaultImage" [lazyLoad]="item.ProfileImageUrl">
+        </ion-avatar>
+        <ion-label>
+          <h2>{{item.FullName}}</h2>
+          <p>{{item.Email}}</p>
+          <p>{{item.MobileNo}}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+</ng-container>
+
+<ng-template #elseTemplate>
+
+  <ion-item *ngFor="let item of [1,2,3,4,5,6,7,8,9,10]">
+    <ion-avatar slot="start">
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </ion-avatar>
+    <ion-label>
+      <h2><ion-skeleton-text animated style="width: 100px;"></ion-skeleton-text></h2>
+      <p><ion-skeleton-text animated style="width: 180px;"></ion-skeleton-text></p>
+      <p><ion-skeleton-text animated style="width: 180px;"></ion-skeleton-text></p>
+    </ion-label>
+  </ion-item>
+
+</ng-template>
+
+<ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+  <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+  </ion-infinite-scroll-content>
+</ion-infinite-scroll>
+
+</ion-content>
